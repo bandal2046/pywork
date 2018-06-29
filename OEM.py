@@ -48,7 +48,7 @@ class QSBK:
             self.url = 'https://vshop.xiaokeduo.com/mid2948/did0/Product/' + str(pageIndex)
             #构建请求的request
             request = urllib2.Request(self.url,headers=self.headers)
-            #利用urlopen获取页面代码
+            #利用urlopen获取页面代码headers
             response = urllib2.urlopen(request)
             #将页面转化为UTF-8编码
             #pageCode = response
