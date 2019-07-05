@@ -12,11 +12,19 @@ def get_books_by_url():
 
     #i = 0
     date = []
+    name = []
     for ul in soup.select('#houselist-mod-new .list-item'):
 
         for a in (ul.select('.house-details .house-title')):
             #print(a.a.string)
-            date.append(a.a.string)
+            #date.append(a.a.string)
+            date.append(a.a.attrs['title'])
+        for d in (ul.select('.house-details .details-item')[0]):
+            #hous_d = d.span.string
+            #hous_det = list(hous_d)
+            hous_d = d.string
+
+            print(hous_d.split('|',1))
 
         for b in(ul.select('.pro-price .price-det')):
             #print(b.strong.string)
@@ -25,26 +33,22 @@ def get_books_by_url():
         for c in (ul.select('.pro-price .unit-price')):
             #print(c.string)
             date.append(c.string)
-    #date1 = json.loads(date)
+    #date1 = json.loads(date.content.decode("utf-8"))
+
     for i in range(len(date)):
-        print('Date print:',date[i])
-        """
-        answer_table = [ul.select('.house-details .details-item')[0] for x in ul if
-                        ul.string is not None]
-        """
-        #print(type(answer_table))
-        #print(i)
-        #print(answer_table[1])
-        #i = i + 1
+        b = 'house'+str(i+1)
+        name.append(b)
+    #print(len(name))
 
-        """
-        for dt in (ul.select('.house-details .details-item')[0]):
-            #print(type(dt))
-            if type(dt.string) is not None :
-                print(dt.string)
-            #print(dt.string)
-            #print(dt.string)
-        """
-
+    d = dict(zip(name,date))
+    #d = [name,date]
+    print(d)
+'''
+    client = pymongo.MongoClient()
+    db = client['house']
+    details = db["data"]
+    x = details.insert_one(d)
+    print(x)
+'''
     #return data
 get_books_by_url()
